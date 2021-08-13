@@ -3,6 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  apiKey:'23f15096-f06f-49b6-993d-5fd816834eb6',
+  hostUrl:`http://localhost:5000`,
+  loginUrl:'/api/Auth/Login/',
   production: false
 };
 
