@@ -7,7 +7,7 @@ import { AppHttpConfigInterceptor } from './app.httpconfig.interceptor';
 import { AuthComponent } from './auth/auth.component';
 import { ResponseListComponent } from './response-list/response-list.component';
 import { AngularMaterialModule } from './angular-material.module';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +18,9 @@ import { AngularMaterialModule } from './angular-material.module';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpConfigInterceptor, multi: true }

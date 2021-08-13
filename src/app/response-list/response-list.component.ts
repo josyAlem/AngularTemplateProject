@@ -1,59 +1,71 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from './data.service';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {DataService} from './data.service';
+import {roaProfitInputModel} from './roaProfitInputModel';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-@Component({
-  selector: 'app-response-list',
-  templateUrl: './response-list.component.html',
-  styleUrls: ['./response-list.component.scss']
-})
+
+@Component({selector: 'app-response-list', templateUrl: './response-list.component.html', styleUrls: ['./response-list.component.scss']})
 export class ResponseListComponent implements OnInit {
 
-  constructor(private _dataSvc:DataService) { }
+    constructor(private _dataSvc : DataService) {}
+    @ViewChild(MatTable)table !: MatTable < any >;
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {}
 
-  columns = [
-    {
-      columnDef: 'position',
-      header: 'No.',
-      cell: (element: PeriodicElement) => `${element.position}`
-    },
-    {
-      columnDef: 'name',
-      header: 'Name',
-      cell: (element: PeriodicElement) => `${element.name}`
-    },
-    {
-      columnDef: 'weight',
-      header: 'Weight',
-      cell: (element: PeriodicElement) => `${element.weight}`
-    },
-    {
-      columnDef: 'symbol',
-      header: 'Symbol',
-      cell: (element: PeriodicElement) => `${element.symbol}`
+    columns : any[] = [
+        {
+            columnDef: 'state',
+            header: 'State',
+            cell: (element : any) => `${
+                element.state
+            }`
+        }, {
+            columnDef: 'totalLoanAmount',
+            header: 'Loan',
+            cell: (element : any) => `${
+                element.totalLoanAmount
+            }`
+        }
+    ];
+    dataSource : MatTableDataSource < any > = new MatTableDataSource<any>();
+    displayedColumns : any[] = [];
+
+    branchId = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]);
+
+    getErrorMessage() {
+        if (this.branchId.hasError('required')) {
+            return 'You must enter a value';
+        }
+
+        return this.branchId.valid ? '' : 'Not a valid email';;
     }
-  ];
-  dataSource = ELEMENT_DATA;
-  displayedColumns = this.columns.map(c => c.columnDef);
+    getData() {
+        let model = new roaProfitInputModel(this.branchId.value);
+        this._dataSvc.getRoaProfit(model).subscribe(res => {
+            this.generateTableSource(res);
+        });
 
+    }
+    generateTableSource(res : any) {
+        this.columns = [];
+        let singleDataRow = res[0];
+        for (const key in singleDataRow) {
+            if (Object.prototype.hasOwnProperty.call(singleDataRow, key)) {
+                this.columns.push({
+                    columnDef: key,
+                    header: key.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
+                        return str.toUpperCase();
+                    }),
+                    cell: (element : any) => `${
+                        element[key]
+                    }`
+
+                });
+            }
+        }
+        this.displayedColumns = this.columns.map(c => c.columnDef);
+        this.dataSource = new MatTableDataSource<any>(res);
+    }
 }
+

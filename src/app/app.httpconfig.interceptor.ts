@@ -31,7 +31,9 @@ export class AppHttpConfigInterceptor implements HttpInterceptor {
 
         request = request.clone(
             {
-                headers: request.headers.set('Accept', 'application/json')
+                headers: request.headers.set('Accept', 'application/json'),
+                responseType:'json'
+
             }
         );
 

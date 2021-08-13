@@ -1,6 +1,15 @@
+<div class="example-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Branch Id</mat-label>
+    <input matInput  [formControl]="branchId" required>
+    <mat-error *ngIf="branchId.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+</div>
+<button mat-raised-button color="primary" (click)="getData()">Get Data</button>
+<p></p>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
-    <th mat-header-cell *matHeaderCellDef>
+    <th mat-header-cell *matHeaderCellDef  class="column-header">
       {{column.header}}
     </th>
     <td mat-cell *matCellDef="let row">
@@ -8,6 +17,6 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns" sticky:true></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
