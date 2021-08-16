@@ -13,37 +13,44 @@ export class ResponseListComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    columns : any[] = [
-        {
+    columns : any[] = [{
             columnDef: 'state',
             header: 'State',
             cell: (element : any) => `${
                 element.state
             }`
-        }, {
-            columnDef: 'totalLoanAmount',
-            header: 'Loan',
-            cell: (element : any) => `${
-                element.totalLoanAmount
-            }`
-        }
-    ];
+        }];
     dataSource : MatTableDataSource < any > = new MatTableDataSource<any>();
     displayedColumns : any[] = [];
+    errMsg : string = "";
 
     branchId = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]);
+
+    reset() {
+        this.errMsg = "";
+        this.dataSource = new MatTableDataSource<any>();;
+        this.displayedColumns = [];
+        this.columns = [];
+
+    }
 
     getErrorMessage() {
         if (this.branchId.hasError('required')) {
             return 'You must enter a value';
         }
 
-        return this.branchId.valid ? '' : 'Not a valid email';;
+        return this.branchId.valid ? '' : 'Not a valid branchId';;
     }
     getData() {
-        let model = new roaProfitInputModel(this.branchId.value);
+this.reset();
+      if (!this.branchId.valid)
+            return;
+
+            let model = new roaProfitInputModel(this.branchId.value);
         this._dataSvc.getRoaProfit(model).subscribe(res => {
             this.generateTableSource(res);
+        }, (error) => {
+            this.errMsg = error.toString();
         });
 
     }

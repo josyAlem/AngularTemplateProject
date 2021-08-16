@@ -5,8 +5,8 @@
     <mat-error *ngIf="branchId.invalid">{{getErrorMessage()}}</mat-error>
   </mat-form-field>
 </div>
-<button mat-raised-button color="primary" (click)="getData()">Get Data</button>
-<p></p>
+<button mat-raised-button color="primary" (click)="getData()" >Get Data</button>
+<p class="errorDisplay">{{errMsg}}</p>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
     <th mat-header-cell *matHeaderCellDef  class="column-header">
