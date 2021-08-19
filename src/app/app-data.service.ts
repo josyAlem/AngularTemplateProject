@@ -2,14 +2,14 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {catchError, map} from "rxjs/operators";
 import {environment} from "src/environments/environment";
-import {roaProfitInputModel} from "./roaProfitInputModel";
+import {renewalRequestModel} from "./loanDecision/model/requestModel";
 import {throwError} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class DataService {
+export class AppDataService {
     constructor(private _http : HttpClient) {}
 
-    getRoaProfit(input : roaProfitInputModel) {
+    getRoaProfit(input : renewalRequestModel) {
         return this._http.post(environment.hostUrl + '/api/Renewal/ROAProfitByBranch', input).pipe(map((res : any) => {
             console.log(res);
             return res;

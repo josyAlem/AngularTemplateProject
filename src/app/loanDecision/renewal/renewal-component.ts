@@ -1,14 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
-import {DataService} from './data.service';
-import {roaProfitInputModel} from './roaProfitInputModel';
+import {AppDataService} from '../../app-data.service';
+import { renewalRequestModel } from '../model/requestModel';
 
 
-@Component({selector: 'app-response-list', templateUrl: './response-list.component.html', styleUrls: ['./response-list.component.scss']})
-export class ResponseListComponent implements OnInit {
+@Component({selector: 'app-renewal',
+ templateUrl: './renewal-component.html',
+ styleUrls: ['./renewal-component.scss']})
+export class RenewalComponent implements OnInit {
 
-    constructor(private _dataSvc : DataService) {}
+    constructor(private _dataSvc : AppDataService) {}
     @ViewChild(MatTable)table !: MatTable < any >;
 
     ngOnInit(): void {}
@@ -46,7 +48,7 @@ this.reset();
       if (!this.branchId.valid)
             return;
 
-            let model = new roaProfitInputModel(this.branchId.value);
+            let model = new renewalRequestModel(this.branchId.value);
         this._dataSvc.getRoaProfit(model).subscribe(res => {
             this.generateTableSource(res);
         }, (error) => {

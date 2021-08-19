@@ -5,22 +5,24 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http"
 import { AppComponent } from './app.component';
 import { AppHttpConfigInterceptor } from './app.httpconfig.interceptor';
 import { AuthComponent } from './auth/auth.component';
-import { ResponseListComponent } from './response-list/response-list.component';
+import { AppRoutingModule } from './app-routing.module';
 import { AngularMaterialModule } from './angular-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
+import { LoanDecisionModule } from './loanDecision/loan-decision.module';
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     HeaderComponent,
-    ResponseListComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    AppRoutingModule,
     AngularMaterialModule,
+    LoanDecisionModule,
     FormsModule,
     ReactiveFormsModule
   ],

@@ -1,13 +1,17 @@
 <mat-toolbar color="accent">
-  <!-- <button mat-icon-button class="example-icon" >
-    <mat-icon>menu</mat-icon>
-  </button> -->
   <h1 class="heading">Loan Decision DEMO</h1>
   <span class="example-spacer"></span>
-  <!-- <button mat-icon-button class="example-icon favorite-icon" >
-    <mat-icon>favorite</mat-icon>
+  <button mat-button class="example-icon" [routerLink]="['/renewal']" routerLinkActive="router-link-active"  >
+    Renewal
   </button>
-  <button mat-icon-button class="example-icon" >
-    <mat-icon>share</mat-icon>
-  </button> -->
+  <button mat-button class="example-icon" [routerLink]="['/newBorrowerRenewal']" routerLinkActive="router-link-active"  >
+    New Borrower Renewal
+  </button>
+  <button mat-button class="example-icon" [routerLink]="['/newBorrower']" routerLinkActive="router-link-active"  >
+    New Borrower
+  </button>
+  <button mat-button class="example-icon" [routerLink]="['/formerBorrower']" routerLinkActive="router-link-active"  >
+    Former Borrower
+  </button>
+
 </mat-toolbar>
