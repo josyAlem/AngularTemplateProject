@@ -7,6 +7,7 @@
 (submitForm)="submitForm($event)"
 ></tmpl-form>
 <p class="errorDisplay">{{errMsg}}</p>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
     <th mat-header-cell *matHeaderCellDef  class="column-header">

@@ -23,7 +23,8 @@ export class renewalRequestModel {
       fields.push({
         name: prop,
         dataType: prop == 'branchId' || prop == 'twn' ? 'string' : 'number',
-        label: prop.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
+        label: prop.replace(/([A-Z])/g, ' $1')
+              .replace(/^./, function (str) {
           return str.toUpperCase();
         }),
         controlType: 'input',

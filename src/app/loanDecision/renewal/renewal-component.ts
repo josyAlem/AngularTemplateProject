@@ -76,9 +76,10 @@ export class RenewalComponent implements OnInit {
       if (Object.prototype.hasOwnProperty.call(singleDataRow, key)) {
         this.columns.push({
           columnDef: key,
-          header: key.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
+          header: key.replace(/([A-Z])/g, ' $1')
+          .replace(/^./, function (str) {
             return str.toUpperCase();
-          }),
+          }).split(' ',3).join(' '),
           cell: (element: any) => `${element[key]}`,
         });
       }
