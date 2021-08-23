@@ -18,6 +18,7 @@ import * as _ from 'underscore';
 import * as sharedEnums from '../enums';
 import { forEach } from 'underscore';
 import { distinct, map } from 'rxjs/operators';
+import { shared } from '../globals';
 
 @Component({
   selector: 'tmpl-form',

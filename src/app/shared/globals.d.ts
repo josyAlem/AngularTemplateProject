@@ -1,3 +1,4 @@
+import { MatTableDataSource } from "@angular/material/table";
 
 declare namespace shared {
 
@@ -36,6 +37,30 @@ declare namespace shared {
           columns: IDataModelColumn[],
           validators?:IDataModelValidator[]
       }
+      interface IContextMenu {
+        id?:string,
+        label?: string;
+        icon?: string;
+        disabled?: boolean,
+        command?: (ctxMenuId?: string,data?:any) => void
+      }
+      interface IDataTable{
+        tableCaption?: string,
+        rows: MatTableDataSource<any>,
+        columns: IDataModelColumn[],
+        selectableRows: boolean,
+        expandContent?:string,
+        sortBy:string,
+        sortDirection:'desc'|'asc',
+        contextMenu?: IContextMenu[],
+        paginator: boolean,
+        pageSizeOptions?: number[],
+        pageSize?:number,
+        totalRecords:number
+
+    }
+
+
 
 
   }

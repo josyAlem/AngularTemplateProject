@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import{ TmplFormComponent} from './form/tmpl-form'
 import { AngularMaterialModule } from '../angular-material.module';
 import { SharedFilterPipe } from "./pipes/shared-filter.pipe";
+import { TmplDataGridComponent } from './data-grid/tmpl-grid';
 
 @NgModule({
     imports: [
@@ -14,9 +15,12 @@ import { SharedFilterPipe } from "./pipes/shared-filter.pipe";
     ],
     declarations: [
         TmplFormComponent,
+        TmplDataGridComponent,
         SharedFilterPipe],
     exports: [
-        TmplFormComponent
+        TmplFormComponent,
+        TmplDataGridComponent,
+        SharedFilterPipe
     ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

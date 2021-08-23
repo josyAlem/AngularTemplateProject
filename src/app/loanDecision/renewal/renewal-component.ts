@@ -7,6 +7,7 @@ import { formSubmitType } from '../../shared/enums';
 import { plainToClass } from 'class-transformer';
 import * as _ from 'underscore';
 import { isNull } from 'underscore';
+import { shared } from 'src/app/shared/globals';
 
 @Component({
   selector: 'app-renewal',
@@ -23,16 +24,19 @@ export class RenewalComponent implements OnInit {
   formSubmitType!: sharedEnums.formSubmitType;
   dataModel!: shared.IDataModel;
   submitFormTitle!: string;
-
-  columns: any[] = [
-    {
-      columnDef: 'state',
-      header: 'State',
-      cell: (element: any) => `${element.state}`,
-    },
-  ];
-  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-  displayedColumns: any[] = [];
+  dataSource!: shared.IDataTable;
+  localDataSource: shared.IDataTable= {
+    tableCaption: 'Results',
+    rows:new MatTableDataSource<any>(),
+    columns:[],
+    selectableRows:false,
+    sortBy: "",
+    sortDirection: 'desc',
+    paginator: false,
+    pageSizeOptions: [5, 10, 20, 50, 100],
+    pageSize: 10,
+    totalRecords: 0,
+  };
   errMsg: string = '';
 
   ngOnInit(): void {
@@ -63,28 +67,25 @@ export class RenewalComponent implements OnInit {
     );
   }
   reset() {
-    this.dataSource = new MatTableDataSource<any>();
-    this.displayedColumns = [];
-    this.columns = [];
     this.errMsg = '';
   }
 
   generateTableSource(res: any) {
-    this.columns = [];
+    let columns:shared.IDataModelColumn[] = [];
     let singleDataRow = res[0];
     for (const key in singleDataRow) {
       if (Object.prototype.hasOwnProperty.call(singleDataRow, key)) {
-        this.columns.push({
-          columnDef: key,
+        columns.push({
           header: key.replace(/([A-Z])/g, ' $1')
           .replace(/^./, function (str) {
             return str.toUpperCase();
           }).split(' ',3).join(' '),
-          cell: (element: any) => `${element[key]}`,
+          field:key
         });
       }
     }
-    this.displayedColumns = this.columns.map((c) => c.columnDef);
-    this.dataSource = new MatTableDataSource<any>(res);
+    this.localDataSource.columns =columns;
+    this.localDataSource.rows = new MatTableDataSource<any>(res);
+    this.dataSource=this.localDataSource;
   }
 }

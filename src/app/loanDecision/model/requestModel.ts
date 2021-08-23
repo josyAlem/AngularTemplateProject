@@ -1,4 +1,5 @@
 import { FormControl, Validators } from '@angular/forms';
+import { shared } from 'src/app/shared/globals';
 export class renewalRequestModel {
   constructor(
     public branchId: number = 0,
@@ -30,6 +31,49 @@ export class renewalRequestModel {
         controlType: 'input',
         formView: true,
         type: prop == 'twn' ? 'string' : 'number',
+      });
+    });
+    return {
+      fields: fields,
+      columns: [],
+      validators: [
+        {
+          name: 'branchId',
+          validationRule: [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(4),
+          ],
+        },
+      ],
+    };
+  }
+}
+
+
+export class newBorrowerRenewalRequestModel {
+  constructor(
+    public branchId: number = 0,
+    public payment?: number,
+    public term?: number,
+    public v4Score?: number,
+    public rvStlScore?: number,
+  ) {}
+
+  getDataModel(): shared.IDataModel {
+    let fields: shared.IDataModelField[] = [];
+    Object.entries(this).forEach(([key, value]) => {
+      let prop: string = key;
+      fields.push({
+        name: prop,
+        dataType: prop == 'branchId' ? 'string' : 'number',
+        label: prop.replace(/([A-Z])/g, ' $1')
+              .replace(/^./, function (str) {
+          return str.toUpperCase();
+        }),
+        controlType: 'input',
+        formView: true,
+        type: 'number',
       });
     });
     return {
