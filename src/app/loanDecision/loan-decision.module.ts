@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { RenewalComponent } from './renewal/renewal-component';
 import { NewBorrowerComponent } from './new-borrower/new-borrower.component';
 import { AngularMaterialModule } from '../angular-material.module';
@@ -8,6 +8,7 @@ import { FormerBorrowerComponent } from './former-borrower/former-borrower.compo
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
 declarations:[
@@ -21,10 +22,12 @@ imports:[
   BrowserAnimationsModule,
   HttpClientModule,
   AngularMaterialModule,
+  SharedModule,
   FormsModule,
   ReactiveFormsModule],
 exports:[],
 //entryComponents: [RenewalComponent,NewBorrowerComponent]
+schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 
 })
 export class LoanDecisionModule{}

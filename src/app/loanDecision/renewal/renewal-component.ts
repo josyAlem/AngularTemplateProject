@@ -1,80 +1,89 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {MatTable, MatTableDataSource} from '@angular/material/table';
-import {AppDataService} from '../../app-data.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { AppDataService } from '../../app-data.service';
 import { renewalRequestModel } from '../model/requestModel';
+import * as sharedEnums from '../../shared/enums';
+import { formSubmitType } from '../../shared/enums';
+import { plainToClass } from 'class-transformer';
+import * as _ from 'underscore';
+import { isNull } from 'underscore';
 
-
-@Component({selector: 'app-renewal',
- templateUrl: './renewal-component.html',
- styleUrls: ['./renewal-component.scss']})
+@Component({
+  selector: 'app-renewal',
+  templateUrl: './renewal-component.html',
+  styleUrls: ['./renewal-component.scss'],
+})
 export class RenewalComponent implements OnInit {
+  constructor(private _dataSvc: AppDataService) {
+    this.initVariables();
+  }
+  @ViewChild(MatTable) table!: MatTable<any>;
 
-    constructor(private _dataSvc : AppDataService) {}
-    @ViewChild(MatTable)table !: MatTable < any >;
+  formData: any;
+  formSubmitType!: sharedEnums.formSubmitType;
+  dataModel!: shared.IDataModel;
+  submitFormTitle!: string;
 
-    ngOnInit(): void {}
+  columns: any[] = [
+    {
+      columnDef: 'state',
+      header: 'State',
+      cell: (element: any) => `${element.state}`,
+    },
+  ];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  displayedColumns: any[] = [];
+  errMsg: string = '';
 
-    columns : any[] = [{
-            columnDef: 'state',
-            header: 'State',
-            cell: (element : any) => `${
-                element.state
-            }`
-        }];
-    dataSource : MatTableDataSource < any > = new MatTableDataSource<any>();
-    displayedColumns : any[] = [];
-    errMsg : string = "";
+  ngOnInit(): void {
+    this.initVariables();
+  }
+  initVariables() {
+    this.submitFormTitle = 'Calculate';
+    this.formData = {};
+    this.formSubmitType = formSubmitType.NEW;
+    this.dataModel = new renewalRequestModel().getDataModel();
+  }
 
-    branchId = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]);
+  submitForm(formValue: JSON) {
+    console.log('form recieved in renewal cpm');
+    this.reset();
 
-    reset() {
-        this.errMsg = "";
-        this.dataSource = new MatTableDataSource<any>();;
-        this.displayedColumns = [];
-        this.columns = [];
+    let model: any = plainToClass(renewalRequestModel, formValue);
+    model = _.pick(model, (value, key, obj) => {
+      return _.isNull(value) == false;
+    });
+    this._dataSvc.getRoaProfit(model).subscribe(
+      (res) => {
+        this.generateTableSource(res);
+      },
+      (error) => {
+        this.errMsg = this._dataSvc.parseError(error);
+      }
+    );
+  }
+  reset() {
+    this.dataSource = new MatTableDataSource<any>();
+    this.displayedColumns = [];
+    this.columns = [];
+    this.errMsg = '';
+  }
 
-    }
-
-    getErrorMessage() {
-        if (this.branchId.hasError('required')) {
-            return 'You must enter a value';
-        }
-
-        return this.branchId.valid ? '' : 'Not a valid branchId';;
-    }
-    getData() {
-this.reset();
-      if (!this.branchId.valid)
-            return;
-
-            let model = new renewalRequestModel(this.branchId.value);
-        this._dataSvc.getRoaProfit(model).subscribe(res => {
-            this.generateTableSource(res);
-        }, (error) => {
-            this.errMsg = error.toString();
+  generateTableSource(res: any) {
+    this.columns = [];
+    let singleDataRow = res[0];
+    for (const key in singleDataRow) {
+      if (Object.prototype.hasOwnProperty.call(singleDataRow, key)) {
+        this.columns.push({
+          columnDef: key,
+          header: key.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
+            return str.toUpperCase();
+          }),
+          cell: (element: any) => `${element[key]}`,
         });
-
+      }
     }
-    generateTableSource(res : any) {
-        this.columns = [];
-        let singleDataRow = res[0];
-        for (const key in singleDataRow) {
-            if (Object.prototype.hasOwnProperty.call(singleDataRow, key)) {
-                this.columns.push({
-                    columnDef: key,
-                    header: key.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
-                        return str.toUpperCase();
-                    }),
-                    cell: (element : any) => `${
-                        element[key]
-                    }`
-
-                });
-            }
-        }
-        this.displayedColumns = this.columns.map(c => c.columnDef);
-        this.dataSource = new MatTableDataSource<any>(res);
-    }
+    this.displayedColumns = this.columns.map((c) => c.columnDef);
+    this.dataSource = new MatTableDataSource<any>(res);
+  }
 }
-

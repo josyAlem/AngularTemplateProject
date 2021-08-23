@@ -1,12 +1,11 @@
 <h2>Renewal Loan Decision</h2>
-<div class="example-container">
-  <mat-form-field appearance="fill">
-    <mat-label>Branch Id</mat-label>
-    <input matInput  [formControl]="branchId" required>
-    <mat-error *ngIf="branchId.invalid">{{getErrorMessage()}}</mat-error>
-  </mat-form-field>
-</div>
-<button mat-raised-button color="primary" (click)="getData()" >Get Data</button>
+<tmpl-form
+[formData]="formData"
+[formSubmitType]="formSubmitType"
+[dataModel]="dataModel"
+[submitFormTitle]="submitFormTitle"
+(submitForm)="submitForm($event)"
+></tmpl-form>
 <p class="errorDisplay">{{errMsg}}</p>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">

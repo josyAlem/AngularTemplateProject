@@ -10,6 +10,8 @@ import { AngularMaterialModule } from './angular-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { LoanDecisionModule } from './loanDecision/loan-decision.module';
+import { SharedModule } from './shared/shared.module';
+import 'reflect-metadata';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,7 @@ import { LoanDecisionModule } from './loanDecision/loan-decision.module';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    SharedModule,
     AngularMaterialModule,
     LoanDecisionModule,
     FormsModule,
