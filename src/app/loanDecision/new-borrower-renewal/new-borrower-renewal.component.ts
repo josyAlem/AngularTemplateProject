@@ -25,16 +25,9 @@ export class NewBorrowerRenewalComponent implements OnInit {
   submitFormTitle!: string;
   dataSource!: shared.IDataTable;
   localDataSource: shared.IDataTable= {
-    tableCaption: 'Results',
+    tableCaption: 'ROA Profit Results',
     rows:new MatTableDataSource<any>(),
-    columns:[],
-    selectableRows:false,
-    sortBy: "",
-    sortDirection: 'desc',
-    paginator: false,
-    pageSizeOptions: [5, 10, 20, 50, 100],
-    pageSize: 10,
-    totalRecords: 0,
+    columns:[]
   };
   errMsg: string = '';
 

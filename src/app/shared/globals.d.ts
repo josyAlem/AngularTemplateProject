@@ -1,3 +1,4 @@
+import { SortDirection } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 
 declare namespace shared {
@@ -26,7 +27,8 @@ declare namespace shared {
           field: string,
           header: string,
           isViewDetailLink?:boolean,
-          styleClass?:string
+          styleClass?:string,
+          sticky?:boolean
       }
       interface IDataModelValidator {
           name: string,
@@ -48,15 +50,14 @@ declare namespace shared {
         tableCaption?: string,
         rows: MatTableDataSource<any>,
         columns: IDataModelColumn[],
-        selectableRows: boolean,
+        selectableRows?: boolean,
         expandContent?:string,
-        sortBy:string,
-        sortDirection:'desc'|'asc',
         contextMenu?: IContextMenu[],
-        paginator: boolean,
+        showFilter?: boolean,
+        showPaginator?: boolean,
         pageSizeOptions?: number[],
         pageSize?:number,
-        totalRecords:number
+        totalRecords?:number
 
     }
 

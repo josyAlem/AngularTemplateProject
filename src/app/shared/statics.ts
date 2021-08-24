@@ -2,7 +2,7 @@
 
 import { shared } from "./globals";
 
-export var PageOptions = {
+export let PageOptions = {
     filter: {
         predicate: '',
         value: []
@@ -17,7 +17,7 @@ export var PageOptions = {
     },
     totalCount: 0
 };
-export var  FormCtrlType ={
+export let  FormCtrlType ={
     INPUT:'input',
     CHECKBOX:'checkbox',
     TEXTAREA:'textarea',
@@ -25,7 +25,7 @@ export var  FormCtrlType ={
     SELECT:'select',
     LOCATION:'location'
 };
-export var  RegExValidators ={
+export let  RegExValidators ={
 ALPHA_SPACE:"[a-zA-Z ]*",
 ALPHA_NUM_SPACE:"[a-zA-Z0-9 ]*",
 ALPHA_NUM:"[a-zA-Z0-9]*",
@@ -41,7 +41,8 @@ export function generateDataColumnFromModel(dataModel:any,splitNameCount:number)
       .replace(/^./, function (str) {
         return str.toUpperCase();
       }).split(' ',splitNameCount).join(' '),
-      field:key
+      field:key,
+      sticky:Object.getOwnPropertyNames(dataModel).indexOf(key)<2?true:false
     });
       }
           return columns;

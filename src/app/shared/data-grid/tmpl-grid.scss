@@ -61,9 +61,18 @@ td.mat-column-select,td.mat-column-expand,td.mat-column-ctxMenu {
 
   }
   th.mat-header-cell{
-font-size: 12px;
+font-size: 13px;
 color:black;
-  }
-  .mat-cell, .mat-header-cell{
+text-align: center !important;
+}
+  .mat-cell{
     text-align: center !important;
   }
+
+  caption{
+    font-size: 24px;
+padding:10px;
+  }
+  th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
+    padding-left: 14px !important;
+}

@@ -10,7 +10,12 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import * as _ from 'underscore';
-import { MatSort, MatSortable, MAT_SORT_DEFAULT_OPTIONS, Sort } from '@angular/material/sort';
+import {
+  MatSort,
+  MatSortable,
+  MAT_SORT_DEFAULT_OPTIONS,
+  Sort,
+} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import {
   animate,
@@ -42,34 +47,32 @@ export class TmplDataGridComponent implements OnChanges, OnInit {
   @Output() onFieldClicked: EventEmitter<any> = new EventEmitter();
   selectedRowData!: SelectionModel<any>;
   showSearchRow: boolean = false;
-  localDataTable: shared.IDataTable= {
+  localDataTable: shared.IDataTable = {
     tableCaption: 'Sample Data Table',
     rows: new MatTableDataSource<any>(),
     columns: [],
     selectableRows: true,
     expandContent: '',
-    sortBy: "",
-    sortDirection: 'desc',
-    contextMenu: [          ],
-    paginator: true,
+    contextMenu: [],
+    showPaginator: true,
     pageSizeOptions: [5, 10, 20, 50, 100],
     pageSize: 10,
-    totalRecords: 0
+    totalRecords: 0,
   };
-  @Input() inputDataSource: shared.IDataTable=this.localDataTable;
+  @Input() inputDataSource: shared.IDataTable = this.localDataTable;
 
-  expandedElement!:  null;
+  expandedElement!: null;
   isLoadingResults: boolean = false;
+  showFilter?:boolean=false;
   tableColHeaders!: string[];
-  showPaginator: boolean = false;
+  showPaginator?: boolean = false;
 
-  @ViewChild(MatSort, {static: false}) sort: MatSort=new MatSort();
-  @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort = new MatSort();
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor() {}
   ngOnInit(): void {
     console.log('datatable component init.');
-    //this.localDataTable.rows.sort=this.sort;
   }
   ngOnChanges() {
     this.initDataTable();
@@ -78,12 +81,15 @@ export class TmplDataGridComponent implements OnChanges, OnInit {
   initDataTable() {
     this.selectedRowData = new SelectionModel<any>(true, []);
 
-    if (this.inputDataSource) {
+    if (!this.inputDataSource)
+    return;
 
-      let modifiedColHeaders: shared.IDataModelColumn[]=
-      _.map(this.inputDataSource.columns, function (c) {
-        return c;
-      });
+      let modifiedColHeaders: shared.IDataModelColumn[] = _.map(
+        this.inputDataSource.columns,
+        function (c) {
+          return c;
+        }
+      );
       if (this.inputDataSource.expandContent != null) {
         if (
           !_.findWhere(modifiedColHeaders, {
@@ -115,39 +121,38 @@ export class TmplDataGridComponent implements OnChanges, OnInit {
       }
 
       this.tableColHeaders = _.pluck(modifiedColHeaders, 'header');
-
-      this.showPaginator=this.inputDataSource.paginator;
-
       this.localDataTable = this.inputDataSource;
+      this.showPaginator = this.inputDataSource.showPaginator;
+      this.showFilter = this.inputDataSource.showFilter;
 
-         this.localDataTable.rows.sort = this.sort;
-      this.localDataTable.rows.paginator = this.paginator;
+      this.localDataTable.rows.sort = this.sort;
+      if (this.localDataTable.showPaginator) {
+        if (this.localDataTable.pageSizeOptions == null || [])
+          this.localDataTable.pageSizeOptions = [
+            5, 10, 20, 50, 100, 500, 1000, 10000,
+          ];
+        if (this.localDataTable.totalRecords == null)
+          this.localDataTable.totalRecords =
+            this.localDataTable.rows.data.length;
+        if (this.localDataTable.pageSize == null)
+          this.localDataTable.pageSize = 5;
 
-      if (this.localDataTable.pageSizeOptions == null)
-        this.localDataTable.pageSizeOptions = [
-          5, 10, 20, 50, 100, 500, 1000, 10000,
-        ];
-      if (this.localDataTable.totalRecords == null)
-        this.localDataTable.totalRecords = this.localDataTable.rows.data.length;
-      if (this.localDataTable.pageSize == null)
-        this.localDataTable.pageSize = 5;
-      if (this.localDataTable.sortBy == null)
-        this.localDataTable.sortBy = this.localDataTable.columns[0].header;
-      if (this.localDataTable.sortDirection == null)
-        this.localDataTable.sortDirection = 'asc';
+        this.localDataTable.rows.paginator = this.paginator;
+
     }
-   }
+  }
 
-// sortData(event:Sort ){
+  sortData(event: Sort) {
+    this.localDataTable.rows.sort?.sort({
+      id: event.active,
+      start: event.direction,
+    } as MatSortable);
+  }
 
-//   //this.sort.sort(({id:event.active, start:event.direction}) as MatSortable);
-//  this.localDataTable.rows.sort = this.sort;
-
-// }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.localDataTable.rows.filter = filterValue.trim().toLowerCase();
-  }
+}
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -183,7 +188,10 @@ export class TmplDataGridComponent implements OnChanges, OnInit {
       }
     }
   }
-  onPageChanged(event: any) {}
+  onPageChanged(event: any) {
+    console.log(event);
+  }
+
   onViewDetail(field: string, rowData: any) {
     this.onFieldClicked.emit({ field: field, rowData: rowData });
     console.log(
@@ -194,5 +202,3 @@ export class TmplDataGridComponent implements OnChanges, OnInit {
     this.expandedElement = this.expandedElement === rowData ? null : rowData;
   }
 }
-
-
