@@ -39,7 +39,7 @@ export class SamplePageComponent implements OnInit {
      });
   }
   initVariables() {
-    this.submitFormTitle = 'Calculate';
+    this.submitFormTitle = 'Get';
     this.formData = {};
     this.formSubmitType = formSubmitType.NEW;
     this.dataModel = new sampleRequestModel().getDataModel();

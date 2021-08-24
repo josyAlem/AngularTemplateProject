@@ -1,7 +1,9 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
 import * as _ from 'underscore';
 
+@Injectable({providedIn:'root'})
 export class AppDataResource {
   private apiRoot: string = "http://localhost:3000/contacts";
   constructor(private http: HttpClient) {}

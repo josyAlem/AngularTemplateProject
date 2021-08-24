@@ -39,6 +39,7 @@
     <ng-container *ngFor="let col of localDataTable.columns" [matColumnDef]="col.header" [sticky]="col.sticky">
       <th mat-header-cell *matHeaderCellDef [mat-sort-header]="col.field" id="{{col.field}}"> {{col.header}} </th>
       <td mat-cell *matCellDef="let row">
+
         <span *ngIf="!col.isViewDetailLink"> {{row[col.field]}}</span>
 
         <a *ngIf="col.isViewDetailLink" (click)="onViewDetail(col.field,row)" style="cursor:pointer">

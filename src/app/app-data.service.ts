@@ -1,6 +1,9 @@
 import { Inject, Injectable } from "@angular/core";
+import { plainToClass } from "class-transformer";
+import { map } from "rxjs/operators";
 
 import { AppDataResource } from "./app-data.resource";
+import { Contact } from "./pages/model/responseModel";
 
 @Injectable({providedIn:'root'})
 export class AppDataService {
@@ -34,7 +37,10 @@ export class AppDataService {
         q: this.search
       };
 
-      return this.contact.query(params);
+      return this.contact.query(params)
+      .pipe(map((res)=>{
+return plainToClass(Contact, res,{excludeExtraneousValues:true});
+      }));
   }
 
   updateContact(person:JSON) {

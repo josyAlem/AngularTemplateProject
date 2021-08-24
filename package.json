@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "server": "nodemon server.js",
-    "data-server": "cp ./data/orig-db.json ./data/db.json && json-server --watch ./data/db.json"
+    "data-server": "json-server --watch ./data/db.json"
   },
   "private": true,
   "dependencies": {
