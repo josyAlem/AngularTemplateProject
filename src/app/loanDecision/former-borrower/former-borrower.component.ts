@@ -48,7 +48,6 @@ export class FormerBorrowerComponent implements OnInit {
   }
 
   submitForm(formValue: JSON) {
-    console.log('form recieved in renewal cpm');
     this.reset();
 
     let model: any = plainToClass(formerBorrowerRequestModel, formValue);

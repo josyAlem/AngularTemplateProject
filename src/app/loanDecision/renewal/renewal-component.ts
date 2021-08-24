@@ -6,7 +6,6 @@ import * as sharedEnums from '../../shared/enums';
 import { formSubmitType } from '../../shared/enums';
 import { plainToClass } from 'class-transformer';
 import * as _ from 'underscore';
-import { isNull } from 'underscore';
 import { shared } from 'src/app/shared/globals';
 
 @Component({
@@ -50,7 +49,6 @@ export class RenewalComponent implements OnInit {
   }
 
   submitForm(formValue: JSON) {
-    console.log('form recieved in renewal cpm');
     this.reset();
 
     let model: any = plainToClass(renewalRequestModel, formValue);
@@ -88,4 +86,5 @@ export class RenewalComponent implements OnInit {
     this.localDataSource.rows = new MatTableDataSource<any>(res);
     this.dataSource=this.localDataSource;
   }
+
 }
