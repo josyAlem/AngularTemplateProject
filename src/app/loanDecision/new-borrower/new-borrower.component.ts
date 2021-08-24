@@ -6,8 +6,8 @@ import * as sharedEnums from '../../shared/enums';
 import { formSubmitType } from '../../shared/enums';
 import { plainToClass } from 'class-transformer';
 import * as _ from 'underscore';
-import { isNull } from 'underscore';
 import { shared } from 'src/app/shared/globals';
+import * as statics from 'src/app/shared/statics';
 
 @Component({
   selector: 'app-new-borrower',
@@ -65,22 +65,12 @@ export class NewBorrowerComponent implements OnInit {
   }
   reset() {
     this.errMsg = '';
+    this.localDataSource.columns =[];
+    this.localDataSource.rows = new MatTableDataSource<any>();
+    this.dataSource=this.localDataSource;
   }
-
   generateTableSource(res: any) {
-    let columns:shared.IDataModelColumn[] = [];
-    let singleDataRow = res[0];
-    for (const key in singleDataRow) {
-      if (Object.prototype.hasOwnProperty.call(singleDataRow, key)) {
-        columns.push({
-          header: key.replace(/([A-Z])/g, ' $1')
-          .replace(/^./, function (str) {
-            return str.toUpperCase();
-          }).split(' ',3).join(' '),
-          field:key
-        });
-      }
-    }
+    let columns:shared.IDataModelColumn[] = statics.generateDataColumnFromModel(res[0],3);
     this.localDataSource.columns =columns;
     this.localDataSource.rows = new MatTableDataSource<any>(res);
     this.dataSource=this.localDataSource;

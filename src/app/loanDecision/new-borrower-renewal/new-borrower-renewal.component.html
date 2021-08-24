@@ -1,4 +1,6 @@
 <h2>New Borrower Renewal Loan Decision</h2>
+<p ="errorDisplay">{{errMsg}}</p>
+
 <tmpl-form
 [formData]="formData"
 [formSubmitType]="formSubmitType"
@@ -7,7 +9,6 @@
 (submitForm)="submitForm($event)"
 ></tmpl-form>
 
-<p class="errorDisplay">{{errMsg}}</p>
 
 <div class="table-container" *ngIf="localDataSource.columns.length>0">
 <tmpl-grid [inputDataSource]="dataSource">
