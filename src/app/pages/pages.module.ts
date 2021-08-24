@@ -1,0 +1,28 @@
+import { HttpClientModule } from "@angular/common/http";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/compiler";
+import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AngularMaterialModule } from "../angular-material.module";
+import { SharedModule } from "../shared/shared.module";
+import { SamplePageComponent } from './sample-page/sample-page.component';
+
+@NgModule({
+declarations:[
+
+    SamplePageComponent
+  ],
+imports:[
+  BrowserModule,
+  BrowserAnimationsModule,
+  HttpClientModule,
+  AngularMaterialModule,
+  SharedModule,
+  FormsModule,
+  ReactiveFormsModule],
+exports:[],
+schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+
+})
+export class PagesModule{}

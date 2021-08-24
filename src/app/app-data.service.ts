@@ -1,76 +1,59 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { renewalRequestModel, newBorrowerRenewalRequestModel, newBorrowerRequestModel, formerBorrowerRequestModel } from './loanDecision/model/requestModel';
-import { throwError } from 'rxjs';
-import * as _ from 'underscore';
+import { Inject, Injectable } from "@angular/core";
 
-@Injectable({ providedIn: 'root' })
+import { AppDataResource } from "./app-data.resource";
+
+@Injectable({providedIn:'root'})
 export class AppDataService {
-  constructor(private _http: HttpClient) {}
+  private page = 1;
+  private hasMore = true;
+  private isLoading = false;
+  private persons = [];
+  public search = "";
+  public sorting = 'name';
+  public ordering = 'ASC';
 
-  getRoaProfit(input: renewalRequestModel) {
-    return this._http
-      .post(environment.hostUrl + '/api/Renewal/ROAProfitByBranch', input)
-      .pipe(
-        map((res: any) => {
-          console.log(res);
-          return res;
-        }),
-        catchError((error: any) => {
-          return throwError(JSON.stringify(error.error));
-        })
-      );
+  constructor(private contact: AppDataResource) {
+   // this.loadContacts();
   }
-  getRoaProfitForNbRenewal(input: newBorrowerRenewalRequestModel) {
-    return this._http
-      .post(environment.hostUrl + '/api/NewBorrowerRenewal/RoaProfit', input)
-      .pipe(
-        map((res: any) => {
-          console.log(res);
-          return res;
-        }),
-        catchError((error: any) => {
-          return throwError(JSON.stringify(error.error));
-        })
-      );
+
+  // getPerson(email:string) {
+  //   console.log(email);
+  //   for (let person of this.persons) {
+  //     if (person.email === email) {
+  //       return person;
+  //     }
+  //   }
+  // }
+
+
+  loadContacts() {
+      let params = {
+        _page: this.page.toString(),
+        _sort: this.sorting,
+        _order: this.ordering,
+        q: this.search
+      };
+
+      return this.contact.query(params);
   }
-  getRoaProfitForNb(input: newBorrowerRequestModel) {
-    return this._http
-      .post(environment.hostUrl + '/api/NewBorrower/RoaProfit', input)
-      .pipe(
-        map((res: any) => {
-          console.log(res);
-          return res;
-        }),
-        catchError((error: any) => {
-          return throwError(JSON.stringify(error.error));
-        })
-      );
+
+  updateContact(person:JSON) {
+   return this.contact.update(person);
   }
-  getRoaProfitForFb(input: formerBorrowerRequestModel) {
-    return this._http
-      .post(environment.hostUrl + '/api/FormerBorrower/RoaProfit', input)
-      .pipe(
-        map((res: any) => {
-          console.log(res);
-          return res;
-        }),
-        catchError((error: any) => {
-          return throwError(JSON.stringify(error.error));
-        })
-      );
+
+  removeContact(person:JSON) {
+    return this.contact.remove(person);
+
   }
-  parseError(error: any): string {
-    if (!_.isNull(error) && !_.isEmpty(error)) {
-      let parsedError = JSON.parse(error);
-      if (parsedError) {
-        if (parsedError.errors) return JSON.stringify(parsedError.errors);
-        else if (parsedError.applicationErrorMessage)
-          return JSON.stringify(parsedError.applicationErrorMessage);
-      } else return error.toString();
+
+  createContact(person:JSON) {
+    this.contact.save(person);
+  }
+
+  loadMore() {
+    if (this.hasMore && !this.isLoading) {
+      this.page += 1;
+      this.loadContacts();
     }
-    return '';
   }
 }

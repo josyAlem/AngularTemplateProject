@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewBorrowerComponent } from './new-borrower.component';
+import { SamplePageComponent } from './sample-page.component';
 
-describe('NewBorrowerComponent', () => {
-  let component: NewBorrowerComponent;
-  let fixture: ComponentFixture<NewBorrowerComponent>;
+describe('SamplePageComponent', () => {
+  let component: SamplePageComponent;
+  let fixture: ComponentFixture<SamplePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewBorrowerComponent ]
+      declarations: [ SamplePageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewBorrowerComponent);
+    fixture = TestBed.createComponent(SamplePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

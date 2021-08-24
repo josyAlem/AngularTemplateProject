@@ -22,7 +22,7 @@ import { TmplDataGridComponent } from './data-grid/tmpl-grid';
         TmplDataGridComponent,
         SharedFilterPipe
     ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class SharedModule {
 

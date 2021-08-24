@@ -9,9 +9,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularMaterialModule } from './angular-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
-import { LoanDecisionModule } from './loanDecision/loan-decision.module';
 import { SharedModule } from './shared/shared.module';
 import 'reflect-metadata';
+import { PagesModule } from './pages/pages.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,12 +25,12 @@ import 'reflect-metadata';
     AppRoutingModule,
     SharedModule,
     AngularMaterialModule,
-    LoanDecisionModule,
+    PagesModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AppHttpConfigInterceptor, multi: true }
+  //  { provide: HTTP_INTERCEPTORS, useClass: AppHttpConfigInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
