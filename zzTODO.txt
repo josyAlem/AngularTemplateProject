@@ -1,0 +1,4 @@
+add angular/in-memory-web-api and use data from /data/db.json
+
+add dotenv for loading environment variables
+
