@@ -5,11 +5,12 @@ import {
     HttpResponse,
     HttpHandler,
     HttpEvent,
-    HttpErrorResponse
+    HttpErrorResponse,
+    HttpEventType
 } from '@angular/common/http';
 
 import {Observable, throwError} from 'rxjs';
-import {map, catchError} from 'rxjs/operators';
+import {map, catchError, tap} from 'rxjs/operators';
 
 @Injectable()
 export class AppHttpConfigInterceptor implements HttpInterceptor {
@@ -38,17 +39,17 @@ export class AppHttpConfigInterceptor implements HttpInterceptor {
         );
 
         return next.handle(request).pipe(map((event : HttpEvent < any >) => {
-            if (event instanceof HttpResponse) {
-                console.log('interceptor handled event--->>>', event);
-            }
-            return event;
-        }), catchError((error : HttpErrorResponse) => {
+          if (event instanceof HttpResponse) {
+              console.log('interceptor handled event--->>>', event);
+          }
+          return event;
+      }),catchError((error : HttpErrorResponse) => {
             let data = {};
             data = {
                 reason: error && error.error && error.error.reason ? error.error.reason : '',
                 status: error.status
             };
-            console.error('interceptor failed on handlint event--->>>', data);
+            console.error('interceptor failed on handling event--->>>', data);
             return throwError(error);
         }));
     }
