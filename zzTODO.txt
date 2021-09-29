@@ -7,3 +7,9 @@ alertsvc
 loading spinner
 rename project
 
+
+docker pull node:lts-alpine
+docker images --digests # shows images
+docker ps # shows running containers
+docker cp <container>:/path/to/file.ext .  #copy file from within container to current dir
+docker cp file.ext <container>:/path/to/file.ext  #copy file from current directory into container

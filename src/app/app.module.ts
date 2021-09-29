@@ -12,6 +12,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { PagesModule } from './pages/pages.module';
+import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
+import { AppData } from './app-data';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,8 @@ import { PagesModule } from './pages/pages.module';
     AngularMaterialModule,
     PagesModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InMemoryWebApiModule.forRoot(AppData, { delay: 1000 })
   ],
   providers: [
   //  { provide: HTTP_INTERCEPTORS, useClass: AppHttpConfigInterceptor, multi: true }

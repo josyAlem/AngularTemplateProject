@@ -1,15 +1,18 @@
 # Angular Template Project
 
 ## Packages in template
-### 1. Fake Backend  
-    1.1 For quick set up 
+
+### 1. Shared Components
+    chckout README.md on app/shared
+### 2. Fake Backend  
+    a. For quick set up 
       npm install json-server
-    1.2 For extended http service use 
+    b. For extended http service use 
       npm install angular-in-memory-web-api
 
-### 2. Server to run app in production
+### 3. Server to run app in production
     npm install http-server
-### 3. Shared Components
-    chckout README.md on app/shared
 
+### 4. To create scripts in package json
+    refering scripts already created requires using 'run-s' , install np-run-all pkg
 

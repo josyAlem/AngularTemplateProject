@@ -6,7 +6,7 @@ export class AppComponent implements OnInit {
 
     constructor(private authSvc : AuthService) {}
     ngOnInit(): void {
-       // this.authSvc.login();
+
     }
 
 

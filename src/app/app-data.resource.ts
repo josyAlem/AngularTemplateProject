@@ -5,7 +5,7 @@ import * as _ from 'underscore';
 
 @Injectable({providedIn:'root'})
 export class AppDataResource {
-  private apiRoot: string = "http://localhost:3000/contacts";
+  private apiRoot: string ="api/contacts"; //"http://localhost:3000/contacts";
   constructor(private http: HttpClient) {}
 
 
@@ -15,6 +15,10 @@ export class AppDataResource {
 
   get(id:any, params?: { [key: string]: string }): Observable<any> {
     return this.http.get<any>(this.apiRoot + '/' + id, { params });
+  }
+
+  getAll(): Observable<any> {
+    return this.http.get<any>(this.apiRoot );
   }
 
   save(data: any) {

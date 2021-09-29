@@ -1,0 +1,12 @@
+.dockerignore
+.git
+.firebase
+.editorconfig
+/node_modules
+/e2e
+/data
+/backend
+.gitignore
+*.zip
+*.md
+

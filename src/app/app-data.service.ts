@@ -8,28 +8,15 @@ import { Contact } from "./pages/model/responseModel";
 @Injectable({providedIn:'root'})
 export class AppDataService {
   private page = 1;
-  private hasMore = true;
   private isLoading = false;
-  private persons = [];
   public search = "";
   public sorting = 'name';
   public ordering = 'ASC';
 
-  constructor(private contact: AppDataResource) {
-   // this.loadContacts();
+  constructor(private _dataSrc: AppDataResource) {
   }
 
-  // getPerson(email:string) {
-  //   console.log(email);
-  //   for (let person of this.persons) {
-  //     if (person.email === email) {
-  //       return person;
-  //     }
-  //   }
-  // }
-
-
-  loadContacts() {
+  loadData() {
       let params = {
         _page: this.page.toString(),
         _sort: this.sorting,
@@ -37,29 +24,10 @@ export class AppDataService {
         q: this.search
       };
 
-      return this.contact.query(params)
+      return this._dataSrc.getAll()
       .pipe(map((res)=>{
 return plainToClass(Contact, res,{excludeExtraneousValues:true});
       }));
   }
 
-  updateContact(person:JSON) {
-   return this.contact.update(person);
-  }
-
-  removeContact(person:JSON) {
-    return this.contact.remove(person);
-
-  }
-
-  createContact(person:JSON) {
-    this.contact.save(person);
-  }
-
-  loadMore() {
-    if (this.hasMore && !this.isLoading) {
-      this.page += 1;
-      this.loadContacts();
-    }
-  }
 }

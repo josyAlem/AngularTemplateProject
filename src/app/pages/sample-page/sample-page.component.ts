@@ -33,7 +33,7 @@ export class SamplePageComponent implements OnInit {
   ngOnInit(): void {
 
     this.initVariables();
-    this._dataSvc.loadContacts().subscribe((res)=>{
+    this._dataSvc.loadData().subscribe((res)=>{
       this.generateTableSource(res);
 
      });

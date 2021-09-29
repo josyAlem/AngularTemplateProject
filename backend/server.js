@@ -1,5 +1,5 @@
 const http=require("http");
-const app=require("./backend/app");
+const app=require("./app");
 
 const server=http.createServer(app);
 const port=process.port || "3000";

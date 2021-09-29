@@ -2,6 +2,8 @@ import { Expose, Type } from "class-transformer";
 
 export class Contact{
   @Expose()
+public id: number=0;
+  @Expose()
 public name: string="";
 @Expose()
 public email: string="";

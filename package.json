@@ -5,10 +5,20 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
+    "start:prod": "http-server ./dist -a localhost -p 4200",
+    "build-start": "run-s build:prod start:prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server": "nodemon server.js",
-    "data-server": "json-server --watch ./data/db.json"
+    "server": "nodemon ./backend/server.js",
+    "data-server": "json-server --watch ./data/db.json",
+    "build-container":"docker build -t josyalem/angular-template:v1 .",
+    "dockerize":"run-s build:prod build-container",
+    "run-container":"docker run -d --rm -it --name ang-template -p 127.0.0.1:5050:80  josyalem/angular-template:latest",
+    "stop-container":"docker container stop  ang-template",
+    "remove-container":"docker container rm  ang-template",
+    "cleanup-container":"run-s stop-container remove-container",
+    "container-terminal":"docker exec -it ang-template /bin/sh"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +32,7 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "angular-in-memory-web-api": "^0.11.0",
     "class-transformer": "^0.4.0",
     "express": "^4.17.1",
     "json-server": "^0.16.3",
@@ -38,6 +49,7 @@
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
     "@types/underscore": "^1.11.3",
+    "http-server": "^13.0.2",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -45,6 +57,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "nodemon": "^2.0.12",
+    "npm-run-all": "^4.1.5",
     "typescript": "~4.3.5"
   }
 }
