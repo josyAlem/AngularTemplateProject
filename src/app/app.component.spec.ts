@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'LoanDecisionUI'`, () => {
+  it(`should have as title 'angular-template-proj'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('LoanDecisionUI');
+    expect(app.title).toEqual('angular-template-proj');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('LoanDecisionUI app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('angular-template-proj app is running!');
   });
 });

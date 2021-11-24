@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "LoanDecisionUI": {
+    "angular-template-proj": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "LoanDecisionUI:build:production"
+              "browserTarget": "angular-template-proj:build:production"
             },
             "development": {
-              "browserTarget": "LoanDecisionUI:build:development"
+              "browserTarget": "angular-template-proj:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "LoanDecisionUI:build"
+            "browserTarget": "angular-template-proj:build"
           }
         },
         "test": {
@@ -109,5 +109,5 @@
       }
     }
   },
-  "defaultProject": "LoanDecisionUI"
+  "defaultProject": "angular-template-proj"
 }
