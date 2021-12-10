@@ -1,12 +1,12 @@
-import { FormControl, Validators } from '@angular/forms';
-import { shared } from 'src/app/shared/globals';
+import { Validators } from '@angular/forms';
+import { shared } from 'studio-ui-tmpl';
 export class sampleRequestModel {
   constructor(
-    public name: string ="",
+    public name: string = "",
     public email?: string,
     public birthdate?: Date,
     public city?: string,
-  ) {}
+  ) { }
 
   getDataModel(): shared.IDataModel {
     let fields: shared.IDataModelField[] = [];
@@ -14,14 +14,14 @@ export class sampleRequestModel {
       let prop: string = key;
       fields.push({
         name: prop,
-        dataType: prop == 'birthdate'  ? 'date' : 'string',
+        dataType: prop == 'birthdate' ? 'date' : 'string',
         label: prop.replace(/([A-Z])/g, ' $1')
-              .replace(/^./, function (str) {
-          return str.toUpperCase();
-        }),
+          .replace(/^./, function (str) {
+            return str.toUpperCase();
+          }),
         controlType: 'input',
         formView: true,
-        type: prop == 'birthdate'  ? 'date' : 'string',
+        type: prop == 'birthdate' ? 'date' : 'string',
       });
     });
     return {

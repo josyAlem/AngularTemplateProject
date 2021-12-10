@@ -1,12 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { AppDataService } from '../../app-data.service';
-import * as sharedEnums from '../../shared/enums';
-import { formSubmitType } from '../../shared/enums';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { plainToClass } from 'class-transformer';
+import { formSubmitType, generateDataColumnFromModel, shared } from 'studio-ui-tmpl';
 import * as _ from 'underscore';
-import { shared } from 'src/app/shared/globals';
-import * as statics from 'src/app/shared/statics';
+import { AppDataService } from '../../app-data.service';
 import { sampleRequestModel } from '../model/requestModel';
 @Component({
   selector: 'app-sample-page',
@@ -19,24 +16,24 @@ export class SamplePageComponent implements OnInit {
   }
 
   formData: any;
-  formSubmitType!: sharedEnums.formSubmitType;
+  formSubmitType!: formSubmitType;
   dataModel!: shared.IDataModel;
   submitFormTitle!: string;
   dataSource!: shared.IDataTable;
-  localDataSource: shared.IDataTable= {
+  localDataSource: shared.IDataTable = {
     tableCaption: 'Results',
-    rows:new MatTableDataSource<any>(),
-    columns:[]
+    rows: new MatTableDataSource<any>(),
+    columns: []
   };
   errMsg: string = '';
 
   ngOnInit(): void {
 
     this.initVariables();
-    this._dataSvc.loadData().subscribe((res)=>{
+    this._dataSvc.loadData().subscribe((res) => {
       this.generateTableSource(res);
 
-     });
+    });
   }
   initVariables() {
     this.submitFormTitle = 'Get';
@@ -55,16 +52,16 @@ export class SamplePageComponent implements OnInit {
   }
   reset() {
     this.errMsg = '';
-    this.localDataSource.columns =[];
+    this.localDataSource.columns = [];
     this.localDataSource.rows = new MatTableDataSource<any>();
-    this.dataSource=this.localDataSource;
+    this.dataSource = this.localDataSource;
   }
 
   generateTableSource(res: any) {
-    let columns:shared.IDataModelColumn[] = statics.generateDataColumnFromModel(res[0],3);
-    this.localDataSource.columns =columns;
+    let columns: shared.IDataModelColumn[] = generateDataColumnFromModel(res[0], 3);
+    this.localDataSource.columns = columns;
     this.localDataSource.rows = new MatTableDataSource<any>(res);
-    this.dataSource=this.localDataSource;
+    this.dataSource = this.localDataSource;
   }
 
 }

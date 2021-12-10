@@ -1,19 +1,17 @@
-import 'reflect-metadata';
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http"
-import { AppComponent } from './app.component';
-import { AppHttpConfigInterceptor } from './app.httpconfig.interceptor';
-import { AuthComponent } from './auth/auth.component';
-import { AppRoutingModule } from './app-routing.module';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import 'reflect-metadata';
 import { AngularMaterialModule } from './angular-material.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HeaderComponent } from './header/header.component';
-import { SharedModule } from './shared/shared.module';
-import { PagesModule } from './pages/pages.module';
-import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
 import { AppData } from './app-data';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AuthComponent } from './auth/auth.component';
+import { HeaderComponent } from './header/header.component';
+import { PagesModule } from './pages/pages.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +23,6 @@ import { AppData } from './app-data';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    SharedModule,
     AngularMaterialModule,
     PagesModule,
     FormsModule,
@@ -33,7 +30,7 @@ import { AppData } from './app-data';
     InMemoryWebApiModule.forRoot(AppData, { delay: 1000 })
   ],
   providers: [
-  //  { provide: HTTP_INTERCEPTORS, useClass: AppHttpConfigInterceptor, multi: true }
+    //  { provide: HTTP_INTERCEPTORS, useClass: AppHttpConfigInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
