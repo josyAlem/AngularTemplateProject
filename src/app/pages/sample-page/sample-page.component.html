@@ -1,15 +1,14 @@
 <h2>Sample Page</h2>
-<p class="errorDisplay">{{errMsg}}</p>
+<p class="errorDisplay">{{ errMsg }}</p>
 
-<tmpl-form
-[formData]="formData"
-[formSubmitType]="formSubmitType"
-[dataModel]="dataModel"
-[submitFormTitle]="submitFormTitle"
-(submitForm)="submitForm($event)"
-></tmpl-form>
+<studio-ui-tmpl-form
+  [formData]="formData"
+  [formSubmitType]="formSubmitType"
+  [dataModel]="dataModel"
+  [submitFormTitle]="submitFormTitle"
+  (submitForm)="submitForm($event)"
+></studio-ui-tmpl-form>
 
-<div class="table-container" *ngIf="localDataSource.columns.length>0">
-  <tmpl-grid  [inputDataSource]="dataSource">
-    </tmpl-grid>
-  </div>
+<div class="table-container" *ngIf="localDataSource.columns.length > 0">
+  <studio-ui-tmpl-grid [inputDataSource]="dataSource"> </studio-ui-tmpl-grid>
+</div>

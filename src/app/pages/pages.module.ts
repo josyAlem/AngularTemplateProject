@@ -1,5 +1,5 @@
 import { HttpClientModule } from "@angular/common/http";
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -12,13 +12,14 @@ import { SamplePageComponent } from './sample-page/sample-page.component';
     SamplePageComponent
   ],
   imports: [
+    StudioUiTmplModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StudioUiTmplModule,
     FormsModule,
     ReactiveFormsModule],
-  exports: []
+  exports: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 
 })
 export class PagesModule { }

@@ -1,5 +1,5 @@
 import { Validators } from '@angular/forms';
-import { shared } from 'studio-ui-tmpl';
+import { IDataModel, IDataModelField } from 'studio-ui-tmpl';
 export class sampleRequestModel {
   constructor(
     public name: string = "",
@@ -8,8 +8,8 @@ export class sampleRequestModel {
     public city?: string,
   ) { }
 
-  getDataModel(): shared.IDataModel {
-    let fields: shared.IDataModelField[] = [];
+  getDataModel(): IDataModel {
+    let fields: IDataModelField[] = [];
     Object.entries(this).forEach(([key, value]) => {
       let prop: string = key;
       fields.push({

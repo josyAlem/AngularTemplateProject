@@ -1,6 +1,6 @@
 {
-  "name": "loan-decision-ui",
-  "version": "0.0.0",
+  "name": "angular-template-proj",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
@@ -12,11 +12,12 @@
     "test": "ng test",
     "server": "nodemon ./backend/server.js",
     "data-server": "json-server --watch ./data/db.json",
-    "build-container": "docker build -t josyalem/angular-template:v1 .",
-    "dockerize": "run-s build:prod build-container",
+    "build-image": "docker image build -t josyalem/angular-template:v1 .",
+    "remove-image": "docker image rm josyalem/angular-template:v1",
+    "dockerize": "run-s build:prod build-image",
     "run-container": "docker run -d --rm -it --name ang-template -p 127.0.0.1:5050:80  josyalem/angular-template:latest",
-    "stop-container": "docker container stop  ang-template",
-    "remove-container": "docker container rm  ang-template",
+    "stop-container": "docker container stop ang-template",
+    "remove-container": "docker container rm ang-template",
     "cleanup-container": "run-s stop-container remove-container",
     "container-terminal": "docker exec -it ang-template /bin/sh"
   },
@@ -38,7 +39,7 @@
     "json-server": "^0.16.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.0",
-    "studio-ui-tmpl": "0.0.3",
+    "studio-ui-tmpl": "0.0.5",
     "tslib": "^2.3.0",
     "underscore": "^1.13.1",
     "zone.js": "~0.11.4"

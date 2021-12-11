@@ -1,7 +1,7 @@
 # Stage 1
 #Use explicit and deterministic Docker base image tags
 #since tag number not specified, using SHA256 of lts version
-FROM node:lts-alpine@sha256:8c94a0291133e16b92be5c667e0bc35930940dfa7be544fb142e25f8e4510a45 as build-step
+FROM node:lts-alpine as build-step
 
 #Optimize Node.js tooling for production
 #ENV NODE_ENV production
@@ -16,7 +16,7 @@ COPY ./package*.json /app/angular-template
 #npm ci --only=production
 #but for angular scripts we need angular/cli...therefore dev-dependencies
 RUN npm install @angular/cli@12.2.0 \
-    && npm ci
+    && npx -p npm@6 npm ci
 
 #Copy contents of current directory to working dir 
 COPY . /app/angular-template
