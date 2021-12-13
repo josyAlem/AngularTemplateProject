@@ -1,10 +1,5 @@
-# Stage 1
-#Use explicit and deterministic Docker base image tags
-#since tag number not specified, using SHA256 of lts version
+#stage #1
 FROM node:lts-alpine as build-step
-
-#Optimize Node.js tooling for production
-#ENV NODE_ENV production
 
 RUN mkdir -p /app/angular-template
 
@@ -12,15 +7,12 @@ WORKDIR /app/angular-template
 
 COPY ./package*.json /app/angular-template
 
-#Install only production dependencies in the Node.js Docker image
-#npm ci --only=production
-#but for angular scripts we need angular/cli...therefore dev-dependencies
+#for angular scripts we need angular/cli...therefore dev-dependencies
 RUN npm install @angular/cli@12.2.0 \
-    && npx -p npm@6 npm ci
+    && npm ci
 
 #Copy contents of current directory to working dir 
 COPY . /app/angular-template
-#COPY ./dist /app/angular-template
 
 #build angular
 RUN npm run build
@@ -28,7 +20,6 @@ RUN npm run build
 # Stage 2
 FROM nginx:1.17.1-alpine
 
-#COPY --from=build-step /app/angular-template /usr/share/nginx/html
 COPY --from=build-step /app/angular-template/dist /usr/share/nginx/html
 
 #informs Docker that the nginx container listenes network port 80 at runtime
