@@ -21,7 +21,7 @@ export class SamplePageComponent implements OnInit {
   submitFormTitle!: string;
   dataSource!: IDataTable;
   localDataSource: IDataTable = {
-    tableCaption: 'Results',
+    tableCaption: 'Contacts',
     rows: new MatTableDataSource<any>(),
     columns: []
   };
@@ -30,7 +30,7 @@ export class SamplePageComponent implements OnInit {
   ngOnInit(): void {
 
     this.initVariables();
-    this._dataSvc.loadData().subscribe((res) => {
+    this._dataSvc.loadContactData().subscribe((res) => {
       this.generateTableSource(res);
 
     });

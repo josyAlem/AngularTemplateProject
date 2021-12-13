@@ -1,24 +1,23 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError, Observable } from 'rxjs';
-import * as _ from 'underscore';
+import { Observable } from 'rxjs';
 
-@Injectable({providedIn:'root'})
+@Injectable({ providedIn: 'root' })
 export class AppDataResource {
-  private apiRoot: string ="api/contacts"; //"http://localhost:3000/contacts";
-  constructor(private http: HttpClient) {}
+  private apiRoot: string = ""; //"http://localhost:3000/contacts";
+  constructor(private http: HttpClient) { }
 
 
   query(params: { [key: string]: string }): Observable<any[]> {
     return this.http.get<any[]>(this.apiRoot, { params });
   }
 
-  get(id:any, params?: { [key: string]: string }): Observable<any> {
+  get(id: any, params?: { [key: string]: string }): Observable<any> {
     return this.http.get<any>(this.apiRoot + '/' + id, { params });
   }
 
-  getAll(): Observable<any> {
-    return this.http.get<any>(this.apiRoot );
+  getAll(apiroot: string): Observable<any> {
+    return this.http.get<any>(apiroot);
   }
 
   save(data: any) {

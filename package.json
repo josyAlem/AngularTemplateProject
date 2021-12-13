@@ -15,7 +15,7 @@
     "build-image": "docker image build -t josyalem/angular-template:v1 .",
     "remove-image": "docker image rm josyalem/angular-template:v1",
     "dockerize": "run-s build:prod build-image",
-    "run-container": "docker run -d --rm -it --name ang-template -p 127.0.0.1:5050:80  josyalem/angular-template:latest",
+    "run-container": "docker run -d --rm -it --name ang-template -p 127.0.0.1:5050:80  josyalem/angular-template:v1",
     "stop-container": "docker container stop ang-template",
     "remove-container": "docker container rm ang-template",
     "cleanup-container": "run-s stop-container remove-container",

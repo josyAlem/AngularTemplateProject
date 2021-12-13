@@ -1,25 +1,27 @@
 import { Expose, Type } from "class-transformer";
 
-export class Contact{
+export class Contact2 {
   @Expose()
-public id: number=0;
+  public id: number = 0;
   @Expose()
-public name: string="";
-@Expose()
-public email: string="";
+  public name: string = "";
   @Expose()
-  public sex: string="";
+  public email: string = "";
+  @Expose()
+  public sex: string = "";
   @Expose()
   @Type(() => Date)
-   public birthdate: Date=new Date();
+  public birthdate: Date = new Date();
   @Expose()
-      public phoneNumber: string="";
+  public phoneNumber: string = "";
   @Expose()
-  public address: string="";
+  public address: string = "";
   @Expose()
-  public city: string="";
+  public city: string = "";
   @Expose()
-  public country: string="";
+  public country: string = "";
   @Expose()
-  public favorite: boolean=false;
+  public favorite: boolean = false;
 }
+
+
