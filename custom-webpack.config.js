@@ -6,16 +6,6 @@ module.exports = {
     main: "src/main.ts",
     polyfills: "src/polyfills.ts",
   },
-  module: {
-    generator: {
-      asset: {
-        // Generator options for asset modules
-
-        // Customize publicPath for asset modules, available since webpack 5.28.0
-        publicPath: "assets/",
-      },
-    },
-  },
   output: {
     clean: true,
     filename: "[name].js",

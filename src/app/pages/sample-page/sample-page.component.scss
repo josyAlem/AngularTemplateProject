@@ -1,5 +1,6 @@
-.errorDisplay{
-  color:red;
-
-  }
-
+.errorDisplay {
+  @apply text-red-500;
+}
+.page-header {
+  @apply font-bold;
+}
