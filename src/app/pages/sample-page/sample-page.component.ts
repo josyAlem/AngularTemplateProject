@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { plainToClass } from 'class-transformer';
-import { formSubmitType, generateDataColumnFromModel, IDataModel, IDataModelColumn, IDataTable } from 'studio-ui-tmpl';
+import { formSubmitType, IDataModel, IDataTable } from 'studio-ui-tmpl';
 import * as _ from 'underscore';
 import { AppDataService } from '../../app-data.service';
 import { sampleRequestModel } from '../model/requestModel';
@@ -58,8 +58,8 @@ export class SamplePageComponent implements OnInit {
   }
 
   generateTableSource(res: any) {
-    let columns: IDataModelColumn[] = generateDataColumnFromModel(res[0], 3);
-    this.localDataSource.columns = columns;
+    //let columns: IDataModelColumn[] = generateDataColumnFromModel(res[0], 3);
+    this.localDataSource.columns = this.dataModel.columns;
     this.localDataSource.rows = new MatTableDataSource<any>(res);
     this.dataSource = this.localDataSource;
   }
